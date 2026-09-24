@@ -24,6 +24,22 @@ def submit():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+@app.route("/data", methods=["GET"])
+def get_data():
+    try:
+        if os.path.exists(FILE_PATH):
+            with open(FILE_PATH, "r", encoding="utf-8") as f:
+                content = f.read()
+            if not content.strip():
+                return jsonify({"status": "ok", "content": "Файл существует, но пуст"}), 200
+
+            return jsonify({"status": "ok", "content": content}), 200
+        else:
+            return jsonify({"status": "ok", "content": "Файл data.txt ещё не создан"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == "__main__":
     if not os.path.exists(FILE_PATH):
         open(FILE_PATH, "w", encoding="utf-8").close()
