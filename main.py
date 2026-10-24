@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 CORS(app)
 
-FILE_PATH = "data.txt"
+FILE_PATH = "/app/data/data.txt"
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -43,4 +43,4 @@ def get_data():
 if __name__ == "__main__":
     if not os.path.exists(FILE_PATH):
         open(FILE_PATH, "w", encoding="utf-8").close()
-    app.run(host="127.0.0.1", port=5000)
+    app.run(host="0.0.0.0", port=5000)
